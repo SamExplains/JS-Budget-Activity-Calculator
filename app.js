@@ -43,25 +43,49 @@ var UIController = (function () {
 
 var controller = (function (budgetCtrl, UICtrl) {
 
+  var setupEventListeners = function () {
   var DOM = UICtrl.getDOMStrings();
+    $(document).keypress(function (e) {
+
+      if(e.keyCode === 13 || e.which === 13 ){
+        console.log('ENTER Pressed.');
+        ctrlAddItem();
+      }
+
+    });
+
+    $(DOM.inputAddButton).click(function () {
+      console.log('BUTTON manually pressed.');
+      ctrlAddItem();
+    });
+
+  };
+
+
 
   var ctrlAddItem = function () {
     var input = UIController.getinput();
     console.log(input);
   };
 
-  $(DOM.inputAddButton).click(function () {
-    console.log('BUTTON manually pressed.');
-    ctrlAddItem();
-  });
-  $(document).keypress(function (e) {
+
+
+/*  $(document).keypress(function (e) {
 
     if(e.keyCode === 13 || e.which === 13 ){
       console.log('ENTER Pressed.');
       ctrlAddItem();
     }
 
-  });
+  });*/
+
+  return{
+    init: function () {
+      console.log('Application started');
+      setupEventListeners();
+    }
+}
 
 })(budgetController, UIController);
 
+controller.init();
